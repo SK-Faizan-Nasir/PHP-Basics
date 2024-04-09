@@ -22,19 +22,19 @@ class Validator {
    */
   function isValidEmail(string $email) {
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      // $ch = curl_init(
-      //   "https://emailvalidation.abstractapi.com/v1/?api_key={$_ENV['API_KEY']}&email={$_POST['email']}"
-      // );
-      // curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-      // $data = curl_exec($ch);
-      // curl_close($ch);
-      // $result = json_decode($data, true);
-      // if (
-      //   ($result['is_valid_format']['value']) &&
-      //   ($result['is_smtp_valid']['value'])
-      // ) {
-      //   return true;
-      // }
+      $ch = curl_init(
+        "https://emailvalidation.abstractapi.com/v1/?api_key={$_ENV['API_KEY']}&email={$_POST['email']}"
+      );
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+      $data = curl_exec($ch);
+      curl_close($ch);
+      $result = json_decode($data, true);
+      if (
+        ($result['is_valid_format']['value']) &&
+        ($result['is_smtp_valid']['value'])
+      ) {
+        return true;
+      }
       return true;
     }
     return false;

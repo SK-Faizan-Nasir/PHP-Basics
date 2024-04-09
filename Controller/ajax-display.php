@@ -1,5 +1,6 @@
 <?php
 
+// Display All Post in the $res array
 foreach ($res as $i){
   ?>
   <div class='post-item'>

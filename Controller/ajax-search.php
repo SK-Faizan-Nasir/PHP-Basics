@@ -9,5 +9,5 @@ $env = new Dotenv();
 $db_obj = new Database($_ENV['HOST_NAME'], $_ENV['DB_NAME'], $_ENV['USER_NAME'], $_ENV['DB_PASSWORD']);
 
 $res = $db_obj->searchContent($_POST['search']);
-
+// Load search results and display them
 require 'ajax-display.php';

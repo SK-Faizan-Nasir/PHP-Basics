@@ -8,7 +8,7 @@ $env = new Dotenv();
 
 $db_obj = new Database($_ENV['HOST_NAME'], $_ENV['DB_NAME'], $_ENV['USER_NAME'], $_ENV['DB_PASSWORD']);
 
-
+// Perform verifications and validations before updating the profile
 if (!empty($_POST['fname']) && !empty($_POST['lname'])) {
   session_start();
   if (isset($_FILES['file'])) {
@@ -39,6 +39,7 @@ if (!empty($_POST['fname']) && !empty($_POST['lname'])) {
       [$_POST['fname'], $_POST['lname']],
       $_SESSION['email']
     );
+    // If all checks were sucessful update the table.
     echo "Success";
     $_SESSION['fname'] = $_POST['fname'];
     $_SESSION['lname'] = $_POST['lname'];

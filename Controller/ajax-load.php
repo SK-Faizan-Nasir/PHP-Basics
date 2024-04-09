@@ -10,5 +10,5 @@ $db_obj = new Database($_ENV['HOST_NAME'], $_ENV['DB_NAME'], $_ENV['USER_NAME'],
 
 $res = $db_obj->getMorePost($_POST['offset']);
 
+// Load more number of posts.
 require 'ajax-display.php';
-

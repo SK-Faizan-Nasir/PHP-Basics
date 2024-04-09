@@ -16,8 +16,10 @@ $db_obj = new Database($_ENV['HOST_NAME'], $_ENV['DB_NAME'], $_ENV['USER_NAME'],
 
 if (empty($_POST['text'])) {
   echo "0";
+  // If the content is empty there is nothing to post.
 }
 else {
+  // Perform necessary checks and create new post.
   session_start();
   if (
     isset($_FILES['file']) &&

@@ -11,6 +11,7 @@ $env = new Dotenv();
 $message = '';
 $class = 'red';
 
+// Perform verification and validations and send otp for registering.
 if (
   empty($_POST['email']) ||
   empty($_POST['fname']) ||

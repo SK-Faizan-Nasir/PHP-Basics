@@ -11,6 +11,7 @@ $env = new Dotenv();
 $message = '';
 $class = 'red';
 
+//Perform verification and validation and send otp for password reset.
 if (empty($_POST['email'])) {
   $message = "Email field cannot be empty!";
 }

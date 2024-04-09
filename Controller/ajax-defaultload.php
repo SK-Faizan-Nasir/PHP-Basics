@@ -10,4 +10,5 @@ $db_obj = new Database($_ENV['HOST_NAME'], $_ENV['DB_NAME'], $_ENV['USER_NAME'],
 
 $res = $db_obj->getDefaultPost();
 
+// Load default number of posts and display them.
 require 'ajax-display.php';
