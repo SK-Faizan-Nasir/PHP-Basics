@@ -1,3 +1,4 @@
 core/.env
 core/env_example.txt
 vendor
+static/images/

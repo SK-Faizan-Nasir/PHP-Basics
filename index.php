@@ -4,6 +4,7 @@
 require 'Controller/UrlController.php';
 
 $url = $_SERVER['REQUEST_URI'];
+$url = explode('?', $url)[0];
 $url = explode('/', $url);
 // Break down the url for routing.
 
@@ -19,7 +20,7 @@ switch ($url[1]) {
     $control->redirectRegister();
     break;
   case 'reset':
-    $control->redirectForgotPassword();
+    $control->redirectResetPassword();
     break;
   case 'otp':
     $control->redirectOtp();

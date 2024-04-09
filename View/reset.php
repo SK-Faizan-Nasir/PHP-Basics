@@ -12,15 +12,51 @@
 <body>
   <section class="container">
     <div class="signupFrm">
-      <form action="/" class="form" method="post">
+      <form action="/" class="form emailDiv" method="post">
         <h1 class="title">Reset Password</h1>
-
         <div class="inputContainer">
           <input type="email" class="input" name="email" placeholder="a" />
           <label for="email" class="label">Email</label>
         </div>
-        <button name="mail" class="submitBtn">Send OTP</button>
-        <input type="submit" name="submit" class="submitBtn registerBtn" value="Reset Password" />
+        <button name="mail" class="submitBtn otpBtn">Send OTP</button>
+        <div class="message">
+          <?php
+
+          if ($msg != '') :
+          ?>
+            <p class="<?= $cls ?>"><?= $msg ?></p>
+          <?php
+
+          endif
+          ?>
+        </div>
+      </form>
+      <form action="/reset" class="form PasswordForm" method="post">
+        <h1 class="title">Enter OTP</h1>
+        <div class="inputContainer">
+          <input type="number" maxlength="4" class="input" name="otp" placeholder="a" />
+          <label for="otp" class="label">OTP</label>
+        </div>
+        <div class="inputContainer">
+          <input type="password" class="input" name="new_password" placeholder="a" />
+          <label for="new_password" class="label">New Password</label>
+        </div>
+        <div class="inputContainer">
+          <input type="password" class="input" name="confirm_password" placeholder="a" />
+          <label for="confirm_password" class="label">Confirm Password</label>
+        </div>
+        <input type="submit" name="submit" class="submitBtn" value="Submit" />
+        <div class="message">
+          <?php
+
+          if ($msg != '') :
+          ?>
+            <p class="<?= $cls ?>"><?= $msg ?></p>
+          <?php
+
+          endif
+          ?>
+        </div>
       </form>
     </div>
   </section>

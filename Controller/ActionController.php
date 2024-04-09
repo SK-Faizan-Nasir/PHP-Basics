@@ -58,6 +58,53 @@ class ActionController
     return [$msg,$cls];
   }
 
+  function resetController() {
+
+    $msg = '';
+    $cls = 'red';
+
+    if (isset($_POST['submit'])) {
+      var_dump($_POST);
+      if (empty($_POST['otp']) || !preg_match("/^\d{4}$/", $_POST['otp'])) {
+        $msg = 'Invalid OTP';
+      }
+      else {
+        if ($_POST['otp'] != $_SESSION['otp']) {
+          $msg = 'OTP Does Not Match.';
+        }
+        else {
+          if (strtotime('now') > $_SESSION['valid_time']) {
+            $msg = 'OTP Expired';
+            header('location:/');
+          }
+          else {
+            $valid = new Validator();
+            if ($valid->isValidPassword($_POST['new_password']) && ($_POST['new_password'] == $_POST['confirm_password'])) {
+              $db_obj =
+              new Database($_ENV['HOST_NAME'], $_ENV['DB_NAME'], $_ENV['USER_NAME'], $_ENV['DB_PASSWORD']);
+              if ($db_obj->updateInto(
+                'user',
+                ['password'],
+                [password_hash($_POST['new_password'],PASSWORD_DEFAULT)],
+                $_SESSION['email'])) {
+                  $msg = 'Successfully Updated Try Logging In';
+                  $cls = 'green';
+                  $db_obj->closeDb();
+              }
+              else {
+                $msg = "Data could not be saved, Try again.";
+              }
+            }
+            else {
+              $msg = 'Check password fields!';
+            }
+          }
+        }
+      }
+    }
+    return [$msg,$cls];
+  }
+
   /**
    * Function to set variables on homepage loading.
    *
@@ -65,6 +112,7 @@ class ActionController
    *   Returns the full name and the image source of the user.
    */
   function homeController() {
+
     $email = $_SESSION['email'];
     $db_obj = new Database($_ENV['HOST_NAME'], $_ENV['DB_NAME'], $_ENV['USER_NAME'], $_ENV['DB_PASSWORD']);
     $res = $db_obj->selectUser('user', $email);

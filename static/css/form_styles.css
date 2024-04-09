@@ -163,3 +163,9 @@ body {
 #otp-box {
   display: none;
 }
+
+.googleBtn {
+  width: 50%;
+  display: block;
+  margin: 10px auto;
+}

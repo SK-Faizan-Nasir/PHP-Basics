@@ -4,6 +4,7 @@ require_once 'vendor/autoload.php';
 require_once 'core/Dotenv.php';
 require_once 'Model/Database.php';
 require_once 'Controller/ActionController.php';
+require_once 'Helper/Validator.php';
 
 /**
  * Class to route url to destination
@@ -46,6 +47,7 @@ class UrlController extends ActionController {
    */
   function redirectLogin() {
     $this->destroy_session();
+    require_once 'Helper/googleAuthentication.php';
     $res = $this->loginController();
     $msg = $res[0];
     $cls = $res[1];
@@ -57,8 +59,14 @@ class UrlController extends ActionController {
    *
    * @return void
    */
-  function redirectForgotPassword() {
-    $this->destroy_session();
+  function redirectResetPassword() {
+    session_start();
+    if (empty($_SESSION['otp'])) {{
+      $this->destroy_session();
+    }}
+    $res = $this->resetController();
+    $msg = $res[0];
+    $cls = $res[1];
     require 'View/reset.php';
   }
 
@@ -92,10 +100,18 @@ class UrlController extends ActionController {
       isset($_SESSION['email']) &&
       isset($_SESSION['login'])
     ) {
-      $res = $this->homeController();
-      $name = $res[0];
-      $img = $res[1];
-      require 'View/home.php';
+      $valid = new Validator();
+      if ($valid->isExistingUser($_SESSION['email'])) {
+        $res = $this->homeController();
+        $name = $res[0];
+        $img = $res[1];
+        require 'View/home.php';
+      }
+      else {
+        $this->destroy_session();
+        header('location:/');
+      }
+
     }
     else {
       $this->destroy_session();

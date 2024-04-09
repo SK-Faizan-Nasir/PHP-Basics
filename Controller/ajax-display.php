@@ -1,21 +1,32 @@
 <?php
 
-foreach ($res as $i) {
-  echo "
+foreach ($res as $i){
+  ?>
   <div class='post-item'>
-        <div class='flex-all space-between'>";
+        <div class='flex-all space-between'>
+  <?php
   if (!empty($i['image_source'])) {
-    echo "<img class='nav-logo' src='static/images/{$i['image_source']}' alt='user'>";
+    ?>
+    <img class='nav-logo' src='static/images/<?=$i['image_source']?>' alt='user'>
+  <?php
   }
   else{
-    echo "<img class='nav-logo' src='static/images/user_avatar.png' alt='user'>";
+    ?>
+    <img class='nav-logo' src='static/images/user_avatar.png' alt='user'>
+  <?php
   }
-  echo "<p>Posted by {$i['first_name']} {$i['last_name']}</p>
+  ?>
+    <p>Posted by <?=$i['first_name']?> <?=$i['last_name']?></p>
         </div>
-        <p style='text-align:right;'>at {$i['time']}</p>
-        <p>{$i['content']}</p>";
+        <p style='text-align:right;'>at <?=$i['time']?></p>
+        <p><?=$i['content']?></p>
+  <?php
   if (!empty($i['image'])) {
-    echo "<img class='post-img' src='static/images/{$i['image']}' alt='TEA'>";
+  ?>
+    <img class='post-img' src='static/images/<?=$i['image']?>' alt='TEA'>
+  <?php
   }
-  echo "</div>";
+  ?>
+  </div>
+<?php
 }
