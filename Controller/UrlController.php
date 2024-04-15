@@ -20,7 +20,7 @@ class UrlController extends ActionController {
    *
    * @return void
    */
-  function destroy_session()
+  private function destroy_session()
   {
     session_start();
     session_unset();
@@ -32,7 +32,7 @@ class UrlController extends ActionController {
    *
    * @return void
    */
-  function redirectRegister() {
+  public function redirectRegister() {
     $res = $this->registerController();
     $msg = $res[0];
     $cls = $res[1];
@@ -45,7 +45,7 @@ class UrlController extends ActionController {
    *
    * @return void
    */
-  function redirectLogin() {
+  public function redirectLogin() {
     $this->destroy_session();
     require_once 'Helper/googleAuthentication.php';
     $google = new GoogleAuthentication();
@@ -60,7 +60,7 @@ class UrlController extends ActionController {
    *
    * @return void
    */
-  function redirectResetPassword() {
+  public function redirectResetPassword() {
     session_start();
     if (empty($_SESSION['otp'])) {{
       $this->destroy_session();
@@ -76,7 +76,7 @@ class UrlController extends ActionController {
    *
    * @return void
    */
-  function redirectOtp() {
+  public function redirectOtp() {
     session_start();
     if (
       isset($_SESSION['email']) &&
@@ -95,7 +95,7 @@ class UrlController extends ActionController {
    *
    * @return void
    */
-  function redirectHome() {
+  public function redirectHome() {
     session_start();
     if (
       isset($_SESSION['email']) &&
@@ -112,7 +112,6 @@ class UrlController extends ActionController {
         $this->destroy_session();
         header('location:/register');
       }
-
     }
     else {
       $this->destroy_session();
@@ -125,7 +124,7 @@ class UrlController extends ActionController {
    *
    * @return void
    */
-  function redirectProfile() {
+  public function redirectProfile() {
     session_start();
     if (
       isset($_SESSION['email']) &&

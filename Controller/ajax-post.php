@@ -41,6 +41,3 @@ if (!empty($_POST['text'])) {
   $db_obj->closeDb();
   echo "1";
 }
-
-
-

@@ -143,7 +143,6 @@ class ActionController
       $img = $res['image_source'];
     }
     $db_obj->closeDb();
-
     return [$img,$fname,$lname,$email];
   }
 
