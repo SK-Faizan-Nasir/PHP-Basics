@@ -8,22 +8,17 @@ $env = new Dotenv();
 
 $msg = '';
 $cls = 'red';
-
+$allowed_files = ['image/png', 'image/jpeg', 'image/svg', 'image/webp'];
 $file_name = '';
 $time = date("Y-m-d H:i:s");
 
 $db_obj = new Database($_ENV['HOST_NAME'], $_ENV['DB_NAME'], $_ENV['USER_NAME'], $_ENV['DB_PASSWORD']);
 
-if (empty($_POST['text'])) {
-  echo "0";
-  // If the content is empty there is nothing to post.
-}
-else {
+if (!empty($_POST['text'])) {
   // Perform necessary checks and create new post.
   session_start();
   if (
-    isset($_FILES['file']) &&
-    ($_FILES['file']['type'] == 'image/png' || $_FILES['file']['type'] == 'image/jpeg')
+    isset($_FILES['file']) && in_array($_FILES['file']['type'],$allowed_files)
   ) {
     $type = explode('/', $_FILES['file']['type'])[1];
     $img_path = uniqid("mvc_social") . '.' . $type;

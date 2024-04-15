@@ -20,8 +20,7 @@ class OtpMail
    * @return int
    *   Returns randomly generated otp.
    */
-  private function otp_generate()
-  {
+  private function otp_generate() {
     $this->otp = rand(1000, 9980);
     return $this->otp;
   }
@@ -34,9 +33,7 @@ class OtpMail
    * @return bool
    *   Returns true if email was successfully delivered and false otherwise.
    */
-  public function sendMail(string $email, string $task)
-  {
-
+  public function sendMail(string $email, string $task) {
     $otp = $this->otp_generate();
     // Create PHPMailer object
     $mail = new PHPMailer(true);

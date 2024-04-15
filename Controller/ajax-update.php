@@ -5,14 +5,14 @@ require_once '../core/Dotenv.php';
 require_once '../Model/Database.php';
 
 $env = new Dotenv();
-
 $db_obj = new Database($_ENV['HOST_NAME'], $_ENV['DB_NAME'], $_ENV['USER_NAME'], $_ENV['DB_PASSWORD']);
+$allowed_files = ['image/png', 'image/jpeg', 'image/svg', 'image/webp'];
 
 // Perform verifications and validations before updating the profile
 if (!empty($_POST['fname']) && !empty($_POST['lname'])) {
   session_start();
   if (isset($_FILES['file'])) {
-    if ($_FILES['file']['type'] == 'image/png' || $_FILES['file']['type'] == 'image/jpeg') {
+    if (in_array($_FILES['file']['type'], $allowed_files)) {
       $type = explode('/', $_FILES['file']['type'])[1];
       $img_path = uniqid("mvc_social") . '.' . $type;
       $file_name = '../static/images/' . $img_path;

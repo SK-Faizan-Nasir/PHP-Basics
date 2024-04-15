@@ -20,7 +20,7 @@ class Validator {
    * @return boolean
    *   returns true if email is valid and false otherwise
    */
-  function isValidEmail(string $email) {
+  public function isValidEmail(string $email) {
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $ch = curl_init(
         "https://emailvalidation.abstractapi.com/v1/?api_key={$_ENV['API_KEY']}&email={$_POST['email']}"
@@ -35,7 +35,6 @@ class Validator {
       ) {
         return true;
       }
-      return true;
     }
     return false;
   }
@@ -48,7 +47,7 @@ class Validator {
    * @return boolean
    *   returns true if name is valid and false otherwise.
    */
-  function isValidName(string $name) {
+  public function isValidName(string $name) {
     if (preg_match("/^[a-z A-Z]+$/",$name)){
       return true;
     }
@@ -63,7 +62,7 @@ class Validator {
    * @return boolean
    *   returns true if password is valid and false otherwise.
    */
-  function isValidPassword(string $password) {
+  public function isValidPassword(string $password) {
     if (!empty($password) && preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$/", $password)) {
       return true;
     }
@@ -78,7 +77,7 @@ class Validator {
    * @return boolean
    *   returns true if user exists and false otherwise.
    */
-  function isExistingUser(string $email) {
+  public function isExistingUser(string $email) {
     $db_obj = new Database($_ENV['HOST_NAME'], $_ENV['DB_NAME'], $_ENV['USER_NAME'], $_ENV['DB_PASSWORD']);
     if ($db_obj->selectUser('user',$email)){
       return true;

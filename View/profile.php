@@ -33,7 +33,7 @@
       <label for="lname">Last Name: </label>
       <input name="lname" type="text" value="<?= $lname ?>">
       <label for="image">Upload Image:</label>
-      <input id="image" type="file" name="image" accept="image/png, image/jpeg">
+      <input id="image" type="file" name="image" accept="image/png, image/jpeg, image/svg, image/webp">
       <button class="loadBtn">Update</button>
     </div>
   </main>

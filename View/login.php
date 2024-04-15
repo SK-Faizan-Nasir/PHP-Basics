@@ -30,7 +30,10 @@
           <a href="/register" id="loginBtn" class="submitBtn">Sign Up</a>
           <input type="submit" name="submit" class="submitBtn" value="Log in" />
         </div>
-        <a href="<?php echo $client->createAuthUrl(); ?>"><img class="googleBtn" src="static/images/google_signin.png" alt="Google Sign In"></a>
+        <a href="<?php
+        echo $google->authUrl();
+        $google->authenticate();
+        ?>"><img class="googleBtn" src="static/images/google_signin.png" alt="Google Sign In"></a>
         <a href="/reset" id="loginBtn" class="submitBtn">Forgot Password</a>
       </form>
     </div>

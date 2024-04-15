@@ -12,7 +12,7 @@ class ActionController
    *   Returns an array of size 2 where first element is the status
    *   message and second is the css class.
    */
-  function registerController() {
+  public function registerController() {
     $msg = '';
     $cls = 'red';
 
@@ -58,7 +58,14 @@ class ActionController
     return [$msg,$cls];
   }
 
-  function resetController() {
+  /**
+   * Function to handle reset form actions.
+   *
+   * @return array
+   *   Returns an array of size 2 where first element is the status
+   *   message and second is the css class.
+   */
+  public function resetController() {
 
     $msg = '';
     $cls = 'red';
@@ -111,8 +118,7 @@ class ActionController
    * @return array
    *   Returns the full name and the image source of the user.
    */
-  function homeController() {
-
+  public function homeController() {
     $email = $_SESSION['email'];
     $db_obj = new Database($_ENV['HOST_NAME'], $_ENV['DB_NAME'], $_ENV['USER_NAME'], $_ENV['DB_PASSWORD']);
     $res = $db_obj->selectUser('user', $email);
@@ -126,7 +132,7 @@ class ActionController
    *   Returns the data to be shown in profile section,
    *   like image, name, and email.
    */
-  function profileController() {
+  public function profileController() {
     $email = $_SESSION['email'];
     $db_obj = new Database($_ENV['HOST_NAME'], $_ENV['DB_NAME'], $_ENV['USER_NAME'], $_ENV['DB_PASSWORD']);
     $res = $db_obj->selectUser('user',$email);
@@ -148,7 +154,7 @@ class ActionController
    *   Returns an array of size 2 where first element is the status
    *   message and second is the css class.
    */
-  function loginController() {
+  public function loginController() {
     $msg = '';
     $cls = 'red';
     if (isset($_POST['submit'])) {
@@ -172,10 +178,12 @@ class ActionController
           print_r($_SESSION['login']);
           header('location:/home');
           $db_obj->closeDb();
-        } else {
+        }
+        else {
           $msg = 'Email or password does not match.';
         }
-      } else {
+      }
+      else {
         $msg = 'User does not exist! Sign up';
       }
     }

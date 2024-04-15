@@ -1,5 +1,4 @@
-$(document).ready(function () {
-  $('.otpBtn').click(function (e) {
+function sendOtp(e) {
     e.preventDefault();
     let fname = $('input[name="fname"]').val();
     let lname = $('input[name="lname"]').val();
@@ -49,5 +48,6 @@ $(document).ready(function () {
     } else {
       alert("All fields are required!");
     }
-  });
-});
+  }
+
+$(document).on("click", ".otpBtn", sendOtp);

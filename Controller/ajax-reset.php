@@ -20,23 +20,20 @@ else {
   if (!$valid->isValidEmail($_POST['email'])) {
     $message = "Invalid Email";
   }
+  elseif (!$valid->isExistingUser($_POST['email'])) {
+    $message = "User does not exist! Register First";
+  }
   else {
-    if (!$valid->isExistingUser($_POST['email'])) {
-      $message = "User does not exist! Register First";
+    $mail = new OtpMail();
+    if ($mail->sendMail($_POST['email'], 'reset')) {
+      $message = 'Check Mail for OTP';
+      $class = 'green';
+      session_start();
+      $_SESSION['email'] = $_POST['email'];
     }
     else {
-      $mail = new OtpMail();
-      if ($mail->sendMail($_POST['email'], 'reset')) {
-        $message = 'Check Mail for OTP';
-        $class = 'green';
-        session_start();
-        $_SESSION['email'] = $_POST['email'];
-      }
-      else {
-        $message = 'OTP Was not sent Try again!';
-      }
+      $message = 'OTP Was not sent Try again!';
     }
   }
 }
-
 echo "<p class='{$class}'>{$message}</p>";

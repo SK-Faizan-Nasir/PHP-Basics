@@ -1,33 +1,40 @@
-let dark = false;
+function checkDark() {
+  if (localStorage.getItem("isDarkMode") === "true") {
+    document.body.classList.add("dark-mode");
+  }
+}
 
-document.querySelector("#image").addEventListener("change", function (e) {
+$(document).ready(checkDark);
+
+function setAvatar(e) {
   if (e.target.files.length == 0) {
     return;
   }
   let file = e.target.files[0];
   let url = URL.createObjectURL(file);
   document.querySelector("#avatar").src = url;
-});
+}
 
-$(document).on("click", ".themeBtn", function () {
-  if (dark) {
-    $("body").css("background-color", "lightcyan");
-    $("body").css("color", "black");
+document.querySelector("#image").addEventListener("change", setAvatar);
+
+function changeTheme() {
+  $("body").toggleClass("dark-mode");
+  if (localStorage.getItem("isDarkMode") === "true") {
+    localStorage.setItem("isDarkMode", false);
   } else {
-    $("body").css("background-color", "black");
-    $("body").css("color", "white");
+    localStorage.setItem("isDarkMode", true);
   }
-  dark = !dark;
-});
+}
 
-$(document).on("click", ".loadBtn", function () {
+$(document).on("click", ".themeBtn", changeTheme);
+
+function updateProfile() {
   let fname = $('input[name="fname"]').val();
   let lname = $('input[name="lname"]').val();
 
   if (fname == "" || lname == "") {
     alert("Fill the fields to submit!");
-  }
-  else {
+  } else {
     let fd = new FormData();
     let files = $("#image")[0].files[0];
     fd.append("file", files);
@@ -47,4 +54,6 @@ $(document).on("click", ".loadBtn", function () {
       },
     });
   }
-});
+}
+
+$(document).on("click", ".loadBtn", updateProfile);

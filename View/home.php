@@ -19,12 +19,12 @@
   <main class="container">
     <div class="post-form">
       <textarea name="text" id="post-content" placeholder="Enter caption for your post..." cols="30" rows="2"></textarea>
-      <input type="file" name="file" id="post-upload" accept="image/png, image/jpeg" />
+      <input type="file" name="file" id="post-upload" accept="image/png, image/jpeg, image/svg, image/webp" />
       <button class="post-btn" name="submit">Create Post</button>
     </div>
     <div class="post-container flex-all flex-column">
-      </div>
-      <button class='loadBtn'>Load More</button>
+    </div>
+    <button class='loadBtn'>Load More</button>
   </main>
   <!-- Optional JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

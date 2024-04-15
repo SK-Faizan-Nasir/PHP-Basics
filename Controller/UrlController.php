@@ -48,6 +48,7 @@ class UrlController extends ActionController {
   function redirectLogin() {
     $this->destroy_session();
     require_once 'Helper/googleAuthentication.php';
+    $google = new GoogleAuthentication();
     $res = $this->loginController();
     $msg = $res[0];
     $cls = $res[1];
@@ -109,7 +110,7 @@ class UrlController extends ActionController {
       }
       else {
         $this->destroy_session();
-        header('location:/');
+        header('location:/register');
       }
 
     }

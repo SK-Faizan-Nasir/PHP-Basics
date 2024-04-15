@@ -1,7 +1,14 @@
 let offset = 3;
-let dark = false;
 
-$(document).on("click", ".post-btn", function () {
+function checkDark() {
+  if (localStorage.getItem("isDarkMode") === "true") {
+    document.body.classList.add("dark-mode");
+  }
+}
+
+$(document).ready(checkDark);
+
+function createPost() {
   let content = $("#post-content").val();
   let file = $("#post-upload")[0].files[0];
   if (content != "") {
@@ -17,10 +24,12 @@ $(document).on("click", ".post-btn", function () {
       success: function (data) {
         $("#post-content").val('');
         $("#post-upload").val('');
-        if (data == "0") {
+        if (data != "1") {
           alert("Error Encountered Try Again!");
         }
-        location.reload();
+        else {
+          location.reload();
+        }
 
       },
       error: function () {
@@ -31,9 +40,11 @@ $(document).on("click", ".post-btn", function () {
   else {
     alert("Enter content to post");
   }
-});
+}
 
-$(window).on("load", function () {
+$(document).on("click", ".post-btn", createPost);
+
+function defaultLoad() {
   $.ajax({
     url: "Controller/ajax-defaultload.php",
     type: "POST",
@@ -42,29 +53,38 @@ $(window).on("load", function () {
       $(".post-container").append(data);
     },
   });
-});
+}
 
-$(document).on("click", ".searchBtn", function () {
+$(window).on("load", defaultLoad);
+
+function search() {
   if (window.location.href == "http://mvc.in/home"){
     let search_term = $(".searchBar").val();
-    $.ajax({
-      url: 'Controller/ajax-search.php',
-      type: 'POST',
-      data: {
-        search: search_term
-      },
-      success: function (data) {
-        $(".searchBar").val('');
-        $(".post-container").html(data);
-      }
-    });
+    if (search_term != '') {
+      $.ajax({
+        url: "Controller/ajax-search.php",
+        type: "POST",
+        data: {
+          search: search_term,
+        },
+        success: function (data) {
+          $(".searchBar").val("");
+          $(".post-container").html(data);
+        },
+      });
+    }
+    else {
+      alert("Enter a term to search!");
+    }
   }
   else {
     alert("Go to home page to implement search!");
   }
-});
+}
 
-$(document).on("click", ".loadBtn", function () {
+$(document).on("click", ".searchBtn", search);
+
+function loadMoreData() {
   $.ajax({
     url: "Controller/ajax-load.php",
     type: "POST",
@@ -81,16 +101,19 @@ $(document).on("click", ".loadBtn", function () {
       }
     },
   });
-});
+}
 
-$(document).on("click", ".themeBtn", function () {
-  if (dark) {
-    $('body').css('background-color','lightcyan');
-    $('body').css('color','black');
+$(document).on("click", ".loadBtn", loadMoreData);
+
+function changeTheme() {
+  $("body").toggleClass("dark-mode");
+  if (localStorage.getItem("isDarkMode") === "true") {
+    localStorage.setItem("isDarkMode", false);
   }
   else {
-    $("body").css("background-color", "black");
-    $("body").css("color", "white");
+    localStorage.setItem("isDarkMode", true);
   }
-  dark = !dark;
-});
+}
+
+$(document).on("click", ".themeBtn", changeTheme);
+

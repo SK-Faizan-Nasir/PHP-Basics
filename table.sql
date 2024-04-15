@@ -3,10 +3,8 @@ create table if not exists user (
   last_name varchar(50) not null,
   email varchar(50) primary key,
   password varchar(255) not null,
-  image mediumblob
+  image varchar(255)
   );
-
--- insert into user (first_name, last_name, email, password) values('SK Faizan', 'Nasir', 'faizan.nasir@innoraft.com', 'Password@1');
 
 create table if not exists posts (
   post_id int auto_increment primary key,

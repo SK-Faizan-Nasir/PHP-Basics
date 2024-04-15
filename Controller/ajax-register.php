@@ -31,29 +31,25 @@ else {
   ) {
     $message = 'Please match format requested.';
   }
+  elseif ($_POST['password'] != $_POST['confirm']) {
+    $message = 'Password does not match.';
+  }
+  elseif ($valid->isExistingUser($_POST['email'])) {
+    $message = 'User already exist';
+  }
   else {
-    if ($_POST['password'] != $_POST['confirm']) {
-      $message = 'Password does not match.';
+    $mail = new OtpMail();
+     if ($mail->sendMail($_POST['email'],'register')) {
+      $message = 'Check Mail for OTP';
+      $class = 'green';
+      session_start();
+      $_SESSION['fname'] = $_POST['fname'];
+      $_SESSION['lname'] = $_POST['lname'];
+      $_SESSION['email'] = $_POST['email'];
+      $_SESSION['password'] = $_POST['password'];
     }
     else {
-      if ($valid->isExistingUser($_POST['email'])) {
-        $message = 'User already exist';
-      }
-      else {
-        $mail = new OtpMail();
-        if ($mail->sendMail($_POST['email'],'register')) {
-          $message = 'Check Mail for OTP';
-          $class = 'green';
-          session_start();
-          $_SESSION['fname'] = $_POST['fname'];
-          $_SESSION['lname'] = $_POST['lname'];
-          $_SESSION['email'] = $_POST['email'];
-          $_SESSION['password'] = $_POST['password'];
-        }
-        else {
-          $message = 'OTP Was not sent Try again!';
-        }
-      }
+      $message = 'OTP Was not sent Try again!';
     }
   }
 }

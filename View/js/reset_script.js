@@ -1,8 +1,10 @@
-$(document).ready(function () {
+function hideContent() {
   $(".PasswordForm").hide();
-});
+}
 
-$(document).on("click", ".otpBtn", function (e) {
+$(document).ready(hideContent);
+
+function sendMail(e) {
   e.preventDefault();
   let email = $('input[name="email"]').val();
   if (email == "") {
@@ -32,4 +34,6 @@ $(document).on("click", ".otpBtn", function (e) {
       alert("Please enter a valid email");
     }
   }
-});
+}
+
+$(document).on("click", ".otpBtn", sendMail);
